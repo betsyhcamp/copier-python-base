@@ -45,7 +45,7 @@ copier-python-base/
 │ ├── .gitignore.jinja
 │ ├── src/
 │ │ └── {{ package_name }}/
-│ │ └── init.py
+│ │ └── __init__.py
 │ └── tests/
 │ └── test_smoke.py
 
@@ -70,6 +70,8 @@ The template MUST prompt for the following variables:
   - Allowed values: `none`, `github`, `bitbucket`
   - Default: `none`
 
+In the event that `ci_provider=github` is specified an additional item should be in the template `template/.github/workflows/ci.yml.jinja` . In the event that `ci_provider=bitbucket` is specified an additional item should be in the template `template/bitbucket-pipelines.yml.jinja`. In contrast, if `ci_provider=none` where the defualt value is present, do not add a CI .yml file.
+
 No other prompts are allowed.
 
 ---
@@ -93,8 +95,8 @@ The generated `pyproject.toml` MUST include:
   - `pre-commit`
   - `jupytext`
 
-- `[tool.ruff]`
-- `[tool.pytest.ini_options]`
+- `[tool.ruff]` left empty for now
+- `[tool.pytest.ini_options]` with only minimal configuration `testpaths = ["tests"]` and `pythonpath = ["src"]`
 
 No optional dependencies, extras, or version pinning beyond reasonable defaults.
 
@@ -104,9 +106,10 @@ The `.gitignore` should be default exlude the following:
   - `*.csv`
   - `*.parquet'
   - `*.xlsx`
-- IPthython notebook caches
+- IPthython notebook checkpoints `.ipynb_checkpoints/`
+- Ignore files and directories including `*.pyc`, `__pycache__/`, `.venv/`, `dist/`, `*.egg-info/`
 - Environment file `.env`
-- VS Code settings file `.settings.json` although an example `.settings-example.json` should not be excluded.
+- VS Code settings file `.vscode/settings.json` although an example `.settings-example.json` should not be excluded.
 ---
 
 ## Code Quality Tooling
@@ -169,7 +172,7 @@ If `ci_provider == "none"`, no CI files are generated.
 
 ## README
 
-A minimal `README.md` MUST be generated containing:
+A minimal `README.md` MUST be generated automatically containing:
 - Project name
 - Short description
 - Setup instructions:
@@ -178,6 +181,8 @@ A minimal `README.md` MUST be generated containing:
   - `task test`
 
 No badges or marketing language.
+
+Nothing else should be automatically generated in the `README.md` as part of the template
 
 ---
 
