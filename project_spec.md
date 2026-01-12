@@ -130,7 +130,7 @@ The pre-commit configuration MUST include:
 - `end-of-file-fixer`
 - `trailing-whitespace`
 - `detect-private-key`
-- `check-added-large-files` with `args: ["--maxkb=500"]`
+- `check-added-large-files` with `args: ["--maxkb=1000"]`
   
 Use pinned versions for ruff (rev: v0.4.4) and pinned version for pre-commit (rev: v4.5.0)
 ---
