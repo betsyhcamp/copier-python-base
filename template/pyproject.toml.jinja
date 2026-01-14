@@ -1,4 +1,4 @@
-{%- set py_mm = python_version.split('.')[:2] | join('.') -%}
+{%- set py_major_minor = python_version.split('.')[:2] | join('.') -%}
 {%- set py_target = 'py' + python_version.split('.')[:2] | join('') -%}
 [build-system]
 requires = ["hatchling"]
@@ -12,7 +12,7 @@ authors = [
     { name = "{{ author_name }}", email = "{{ author_email }}" }
 ]
 readme = "README.md"
-requires-python = ">={{ py_mm }}"
+requires-python = ">={{ py_major_minor }}"
 dependencies = []
 
 [dependency-groups]
